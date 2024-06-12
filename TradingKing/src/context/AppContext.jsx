@@ -1,4 +1,4 @@
-import { createContext , useState } from "react";
+import { createContext , useEffect, useState } from "react";
 
 export const GlobalContext = createContext();
 
@@ -6,7 +6,12 @@ export const GlobalContext = createContext();
 
 const AppContext = (props)=>{
 
-    const [watchList , setWatchList] = useState(["AAPL" , "MSFT" , "AMZN"]);
+    const [watchList , setWatchList] = useState(localStorage.getItem("watchList")?.split(",") || ["MSFT" , "GOOGL" , "AMZN"]);
+//localStorage.getItem(watchList).split(",")
+    
+    useEffect(()=>{
+        localStorage.setItem("watchList" , watchList);
+    },[watchList])
 
     const addStock = (stock)=>{
         if(!watchList.includes(stock)){

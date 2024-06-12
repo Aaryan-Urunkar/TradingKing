@@ -7,7 +7,7 @@ import { useNavigate} from "react-router-dom"
 
 const StockList =()=>{
 
-    const {watchList} = useContext(GlobalContext)
+    const {watchList , deleteStock} = useContext(GlobalContext)
     // console.log(value);
 
     const [stock, setStock] = useState([]);
@@ -76,7 +76,11 @@ const StockList =()=>{
                                     <td>{data.data.l}</td>
                                     <td>{data.data.o}</td>
                                     <td>{data.data.pc}</td>
-                                    {/* <td>{data.data.c}</td> */}
+                                    <button onClick={(e)=>{
+                                                e.stopPropagation();
+                                                deleteStock(data.symbol);
+                                            }
+                                        } className="btn btn-danger btn-sm ml-3 delete-button">Remove</button>
                                 </tr>
                             )
                         })
